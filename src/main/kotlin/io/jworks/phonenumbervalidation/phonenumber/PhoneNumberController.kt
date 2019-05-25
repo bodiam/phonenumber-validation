@@ -9,13 +9,12 @@ import javax.validation.Valid
 @RestController
 class PhoneNumberController {
 
-    @PostMapping("/validate")
-    fun validate(@RequestBody @Valid input: PhoneNumber): ResponseEntity<String> {
-        println(input)
-
-        return ResponseEntity.ok("Number is valid")
+    @PostMapping("/phonenumber")
+    fun validate(@RequestBody @Valid input: PhoneNumber): ResponseEntity<Message> {
+        return ResponseEntity.ok(Message("Number is valid: ${input.formatPhoneNumber()}"))
     }
 
+    data class Message(val message: String)
 }
 
 

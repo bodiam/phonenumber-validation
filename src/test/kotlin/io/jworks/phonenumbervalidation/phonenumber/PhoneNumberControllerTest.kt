@@ -1,5 +1,6 @@
 package io.jworks.phonenumbervalidation.phonenumber
 
+import org.hamcrest.Matchers.containsString
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.TestInstance
@@ -10,6 +11,7 @@ import org.springframework.test.context.junit.jupiter.SpringExtension
 import org.springframework.test.context.web.WebAppConfiguration
 import org.springframework.test.web.servlet.MockMvc
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post
+import org.springframework.test.web.servlet.result.MockMvcResultMatchers.content
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers.status
 import org.springframework.test.web.servlet.setup.MockMvcBuilders
 
@@ -32,20 +34,20 @@ class PhoneNumberControllerTest {
     @Test
     internal fun validInput() {
         mockMvc.perform(
-                post("/validate")
+                post("/phonenumber")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content("""
 {
 	"name": "Erik",
 	"phoneNumber": "+61403123456"
 }""")
-        ).andExpect(status().isOk)
+        ).andExpect(status().isOk).andExpect(content().string(containsString("+61403123456")))
     }
 
     @Test
     internal fun invalidInput() {
         mockMvc.perform(
-                post("/validate")
+                post("/phonenumber")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content("""
 {
