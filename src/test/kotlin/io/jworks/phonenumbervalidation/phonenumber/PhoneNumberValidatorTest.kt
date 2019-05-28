@@ -23,7 +23,7 @@ internal class PhoneNumberValidatorTest {
         val factory = Validation.buildDefaultValidatorFactory()
         val validator = factory.validator
 
-        validator.validate(PhoneNumber(input, "valid name"))
+        validator.validate(PhoneNumber(input))
     }
 
     @ParameterizedTest(name = "{0} should be valid")
@@ -36,7 +36,7 @@ internal class PhoneNumberValidatorTest {
     ])
     @DisplayName("Phone Number Formatting")
     fun format(input: String, expected: String) {
-        val formatted = PhoneNumber(input, "some name").formatPhoneNumber()
+        val formatted = PhoneNumber(input).formatPhoneNumber()
 
         assertEquals(expected, formatted)
     }
